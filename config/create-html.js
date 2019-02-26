@@ -9,6 +9,7 @@
 const fs = require("fs");
 const HtmlWebpackPlugin = require("html-webpack-plugin");//生成html文件
 const getPath = require("./get-path");
+const templateDir = './src/templates';
 let htmlArr = [];
 function createHtml(page_path){
 	getPath(page_path).map((item)=>{
@@ -20,6 +21,8 @@ function createHtml(page_path){
 		}catch(err){
 			infoData = {};
 		}
+		let filename = infoData.filename ? `${item}/${infoData.filename}` : `${item}/index.html`;
+		let template = infoData.template ? `${templateDir}/${infoData.template}` : `${templateDir}/template.html`;
 		htmlArr.push(new HtmlWebpackPlugin({
 			title:infoData.title ? infoData.title : "webpack,react多页面架构",
 			meta:{
@@ -27,8 +30,8 @@ function createHtml(page_path){
 				description:infoData.description ? infoData.description : "这是一个webpack，react多页面架构"
 			},
 			chunks:[`${item}/${item}`], //引入的js
-			template: "./src/template.html",
-			filename : item == "index" ? "index.html" : `${item}/index.html`, //html位置
+			template: template,
+			filename : item == "index" ? "index.html" : filename,
 			minify:{//压缩html
 				collapseWhitespace: true,
 				preserveLineBreaks: true
