@@ -13,6 +13,7 @@ export default class Nav extends Component {
 					<div className="nav-item"><a href= "/">Home</a></div>
 					<div className="nav-item"><a href= "/todo">Todo</a></div>
 					<div className="nav-item"><a href= "/user/create.html">Create User</a></div>
+					<div className="nav-item"><a href= "/user/edit.html">Edit User</a></div>
 				</div>
 				<div className="column is-2"></div>
 	    </div>

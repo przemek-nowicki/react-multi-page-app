@@ -1,8 +1,10 @@
 import React, { Component } from "react";
+import ReactDOM from "react-dom";
 import Nav from "component/nav";
 import Footer from "component/footer"
+import "../../common.scss";
 
-export default class UserCreatePage extends Component {
+class UserCreatePage extends Component {
 	render() {
 		return (
 			<div>
@@ -14,3 +16,6 @@ export default class UserCreatePage extends Component {
 		);
 	}
 }
+
+ReactDOM.render(<UserCreatePage />, document.getElementById("root"));
+ReactDOM.render(<Nav />, document.getElementById("extraNav"));

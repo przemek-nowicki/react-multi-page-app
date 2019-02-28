@@ -14,24 +14,27 @@ let htmlArr = [];
 function createHtml(page_path){
 	getPath(page_path).map((item)=>{
 		let infoJson ={},infoData={};
+		const fileNameWithoutExtension = item.file.replace(/\.[^/.]+$/, "");
 		try{
 			// 读取pageinfo.json文件内容，如果在页面目录下没有找到pageinfo.json 捕获异常
-			infoJson = fs.readFileSync(`${page_path}/${item}/pageinfo.json`,"utf-8");//
+			infoJson = fs.readFileSync(`${page_path}/${item.dir}/pageinfo.json`,"utf-8");//
 			infoData = JSON.parse(infoJson);
 		}catch(err){
 			infoData = {};
 		}
-		let filename = infoData.filename ? `${item}/${infoData.filename}` : `${item}/index.html`;
-		let template = infoData.template ? `${templateDir}/${infoData.template}` : `${templateDir}/template.html`;
+		
+		let filename = infoData.filename ? `${item.dir}/${fileNameWithoutExtension}.html` : `${item.dir}/index.html`;
+		let template = infoData.template ? `./src/pages/${item.dir}/${fileNameWithoutExtension}.html` : `${templateDir}/template.html`;
+		
 		htmlArr.push(new HtmlWebpackPlugin({
 			title:infoData.title ? infoData.title : "webpack,react多页面架构",
 			meta:{
 				keywords: infoData.keywords ? infoData.keywords : "webpack，react，github",
 				description:infoData.description ? infoData.description : "这是一个webpack，react多页面架构"
 			},
-			chunks:[`${item}/${item}`], //引入的js
+			chunks:[`${item.dir}/${fileNameWithoutExtension}`], //引入的js
 			template: template,
-			filename : item == "index" ? "index.html" : filename,
+			filename : item.dir == "index" ? "index.html" : filename,
 			minify:{//压缩html
 				collapseWhitespace: true,
 				preserveLineBreaks: true

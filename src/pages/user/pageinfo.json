@@ -1,6 +1,6 @@
 {
     "filename": "create.html",
-    "template": "template2.html",
+    "template": "create.html",
     "title":"react-multi-page-app",
     "keywords":"react,multi-page,webpack,node",
     "description":"this is create user website"
